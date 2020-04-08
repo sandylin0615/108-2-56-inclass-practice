@@ -268,4 +268,255 @@ with_tz(studentTime,tzone = "Europe/Paris")
 ```
 
 
+## List
+
+```{r}
+vectorExample <- c(2,6,7)
+listExample <- list(2,6,7)
+
+print(vectorExample)
+print(listExample)
+```
+
+用個元素值可以是不同type的物件值
+
+```{r}
+# 用vector儲存
+
+c("2020-03-31T13:40:55Z",
+  "一芳",
+  "2",
+  "水果茶")
+
+# 用list儲存
+
+library(lubridate)
+`小明交易1` <- list(
+  ymd_hms("2020-03-31T13:40:55Z"), # Date/Time class
+  "一芳", # character
+  2, # numeric
+  "水果茶" # character
+)
+print(`小明交易1`)
+```
+
+物件值可以是vector形式，也可以list
+
+```{r}
+# 用vector
+c(
+  c("108學年第1學期","高級會計學","高等統計學"), #向量1
+  c("108學年第2學期","食在拉丁美洲") #向量2
+  )
+
+```
+
+```{r}
+#用list
+list(
+  c("108學年第1學期","高級會計學","高等統計學"), #向量1
+  c("108學年第2學期","食在拉丁美洲") #向量2
+  )
+```
+
+```{r}
+# list含兩個vectors
+
+`小明108學年課表A` <- list(
+  c("108-1","高級會計學","高等統計學"),
+  c("108-2","食在拉丁美洲")
+)
+print(`小明108學年課表A`)
+```
+
+```{r}
+# list含兩個lists
+
+`小明108學年課表B` <- list(
+  list("108-1","高級會計學","高等統計學"),
+  list("108-2","食在拉丁美洲")
+)
+print(`小明108學年課表B`)
+```
+
+```{r}
+# list含兩個lists, 子層list又各含兩個vectors
+
+`小明108學年課表C` <- list(
+  list(
+    c("108-1"), # 可只寫 "108-1"
+    c("高級會計學","高等統計學")
+       ),
+  list(
+    c("108-2"),
+    c("食在拉丁美洲")
+  )
+)
+print(`小明108學年課表C`)
+```
+
+物件值可以取名
+
+```{r}
+# list含兩個lists, 子層list又各含兩個vectors
+
+`小明108學年課表D` <- list(
+  `上學期`=list(
+    semester=c("108-1"), # 可只寫 "108-1"
+    courses=c("高級會計學","高等統計學")
+       ),
+  `下學期`=list(
+    semester=c("108-2"),
+    courses=c("食在拉丁美洲")
+  )
+)
+print(`小明108學年課表D`)
+```
+
+## Github Commit
+
+```{r}
+commit <- list(
+  author = list(
+    name = "Martin老師",
+    email = "email為mtlin@gm.ntpu.edu.tw",
+    time = ymd_hms("2020-03-25T07:17:40Z")),
+  committer = list(
+    name = "emilyluckey",
+    email = "emily007@gmail.com",
+    time = ymd_hms("2020-03-26T08:18:40Z")),
+  message = "update"
+)
+print(commit)
+```
+
+
+
+```{r}
+browseURL("https://api.github.com/repos/tpemartin/108-2-56-inclass-practice/commits") 
+```
+
+```{r}
+library(jsonlite)
+toJSON(commit)
+```
+
+```{r}
+library(jsonlite)
+fromJSON("https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/F-C0032-001?Authorization=rdec-key-123-45678-011121314&format=JSON") ->
+  weather_next36hours
+```
+
+學生小明，在108學年第1學期修了Alice老師所授的個體經濟學（得分85分）、Mark老師所授的總體經濟學(得分73分)。
+在108學年第2學期修了Jason老師所授的作業研究（得分90分）。
+
+```{r}
+`小明的修課記錄` <- list(
+    name="小明",
+    semesters=list(
+        `108-1`=
+          list(
+            year=108,
+            semester=1,
+            courses=
+              list(
+                list(
+                  name="個體經濟學",
+                  teacher="Alice",
+                  grade=85
+                ),
+                list(
+                  name="總體經濟學",
+                  teacher="Mark",
+                  grade=78
+                )
+              )
+            ),
+        `108-2`=
+          list(
+            year=108,
+            semester=2,
+            courses=
+              list(
+                list(
+                  name="作業研究",
+                  teacher="Jason",
+                  grade=90
+                )
+              )
+            )
+      ) 
+    )
+```
+
+今（“2020-03-31”）明（“2020-04-01”）「台北市」氣溫最高25度，最低18度；「新北市」氣溫最高24度，最低15度。
+
+```{r}
+`天氣預報` <- list(
+  date = list(
+    today = ymd("2020-03-31"),
+    tommorrow = ymd("2020-04-01")),
+  weather = list(
+  `台北市`= list(
+    MaxT = "25",
+    MinT = "18" ),
+  `新北市`= list(
+    MaxT = "24",
+    MinT = "15" )
+  ))
+
+print(`天氣預報`)  
+  
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 物件儲存
+
+```{r}
+save(commit,listExample,`小明108學年課表C`,
+     file="today.Rda")
+```
+
+```{r}
+load("today.Rda")
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
