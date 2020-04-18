@@ -195,18 +195,22 @@ majors10_factor <- factor(majors10_char)
 # 或
 majors10_factor <- factor(
   c('經濟學系','社會學系','社會學系','經濟學系','經濟學系','社會學系','經濟學系','經濟學系','經濟學系','社會學系')
-```
-
-
-```{r}
-
-
+)
 typeof(majors10_factor)
 class(majors10_factor)
 ```
+```{r}
+as.integer(majors10_factor) 
+```
+
 
 ```{r}
 levels(majors10_factor)
+```
+```{r}
+studentId <- c(410773002, 410773015)
+class(studentId)
+typeof(studentId)
 ```
 
 
@@ -238,6 +242,8 @@ as.double(pgDateTime)
 as.double(tpeDateTime)
 ```
 
+
+
 ```{r}
 with_tz(tpeDateTime, tzone="UTC")
 with_tz(pgDateTime, tzone="UTC")
@@ -266,6 +272,7 @@ studentTime
 ```{r}
 with_tz(studentTime,tzone = "Europe/Paris")
 ```
+
 
 
 ## List
@@ -697,8 +704,8 @@ str(listExample,max.level = 3)
 ```
 
 ```{r}
-get1 <- listExample[["學期"]]
-get2 <- listExample["學期"]
+get1 <- listExample[["學期"]] #拿出來
+get2 <- listExample["學期"] #留下來
 ```
 
   *`[[]]`: 拿出某個物件值。
@@ -713,6 +720,17 @@ get1 <- listExample[["學期"]]
 str(get1,max.level = 1)
 ```
 
+```{r}
+get1 <- listExample[["學期"]]
+get1$`108-1`-> get1_layer1
+get1_layer1[[1]] -> get1_layer2
+
+get1_layer2$teacher
+
+listExample[["學期"]]$`108-1`[[1]]$teacher
+```
+
+
  *`[]`: 留下某個物件值。
 
 ```{r}
@@ -720,6 +738,22 @@ get2 <- listExample["學期"] # listExample 只留下 學期元素，是個只�
 str(get2,max.level = 1)
 str(get2,max.level = 2)
 ```
+
+
+```{r}
+get2 <- listExample["學期"]
+get2_layer1 <- get2[[1]]
+get2_layer2 <- get2_layer1[["108-1"]]
+get2_layer3 <- get2_layer2[[1]]
+
+get2_layer3$teacher
+```
+
+```{r}
+listExample["學期"][[1]][["108-1"]][[1]]$teacher
+listExample["學期"][["學期"]][["108-1"]][[1]]$teacher
+```
+
 
 ```{r}
 numVector <- c(2,3,6,-1,4,2,6)
@@ -749,6 +783,57 @@ gender[econOnly]
 econFemaleOnly <- c(T,T,F)
 names[econOnly][econFemaleOnly]
 ```
+
+```{r}
+today <- list(
+  list("台北市",c(highest_temp = 25),c(lowest_temp = 18)),
+  list("新北市",c(highest_temp = 24),c(lowest_temp = 15)))
+
+str(today)
+```
+
+```{r}
+today <- list(
+  list("台北市",
+       highest_temp=c(highest_temp = 25),
+       lowest_temp=c(lowest_temp = 18)),
+  list("新北市",
+       highest_temp=c(highest_temp = 24),
+       lowest_temp=(lowest_temp = 15)))
+
+str(today)
+```
+
+```{r}
+tomorrow <- list(
+  list("台北市",
+       highest_temp=c(highest_temp = 25),
+       lowest_temp=c(lowest_temp = 18)),
+  list("新北市",
+       highest_temp=c(highest_temp = 24),
+       lowest_temp=c(lowest_temp = 15)))
+
+weather <- list(today,tomorrow)
+
+print(weather)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
